@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="{{#with languageCode}}{{.}}{{else}}{{parent.languageCode}}{{/with}}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../theme.css">
+
+    {{#with description}}
+    <meta name="description" content="{{.}}">
+    <meta property="og:description" content="{{.}}">
+    {{/with}}
+
+    <meta property="og:image" content="{{coverRelativePath}}">
+
+    <script src="../theme.js" defer></script>
+
+    <meta property="og:title" content="{{title}}">
+    <title>{{title}}</title>
+  </head>
+  <body>
+    <header class="bg-body-tertiary">
+      <nav class="navbar" role="Site menu">
+        <div class="container">
+          <a class="navbar-brand" href="/">{{parent.title}}</a>
+
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="settings-toggle-theme">
+            <label class="form-check-label" for="settings-toggle-theme">
+              Dark Mode
+            </label>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container py-5">
+      <div class="mkbk-theme-book-meta">
+        <aside class="mkbk-theme-book-meta-aside">
+          <img class="mkbk-theme-book-cover shadow-lg"
+               src="{{coverRelativePath}}"
+               alt="{{title}} cover image">
+        </aside>
+        <section class="mkbk-theme-book-meta-main">
+          <h1 class="display-3">{{title}}</h1>
+          <strong class="h5">{{author.name}}</strong>
+          <ul class="p-0">
+            {{#each tags}}
+            <li class="badge bg-primary">{{.}}</li>
+            {{/each}}
+          </ul>
+
+          <section class="row mt-4">
+            <h2 class="h6 fw-bold text-secondary">ABOUT</h2>
+            {{{content}}}
+          </section>
+          <div class="row">
+            <section class="col-sm-4 col-6">
+              <h2 class="h6 fw-bold text-secondary">PUBLISHER</h2>
+              {{#with publisherName}}
+              {{.}}
+              {{else}}
+              None
+              {{/with}}
+            </section>
+            <section class="col-sm-4 col-6">
+              <h2 class="h6 fw-bold text-secondary">STATUS</h2>
+              {{status}}
+            </section>
+            <section class="col-sm-4 col-6">
+              <h2 class="h6 fw-bold text-secondary">CHAPTERS</h2>
+              {{chapters.length}}
+            </section>
+          </div>
+          <div class="btn-group mt-3" role="group" aria-label="Download Links">
+            <a href="rss.xml" class="btn btn-warning">RSS</a>
+            <a href="{{id}}.epub" class="btn btn-warning">EPUB</a>
+          </div>
+        </section>
+      </div>
+
+      <h2 class="mt-4">Contents</h2>
+      <nav role="Chapters list" class="accordion mt-3 mb-3" id="nav-accordion">
+        {{#each chapters }}
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{id}}" aria-expanded="true" aria-controls="{{id}}-collapse">
+              {{frontmatter.title}}
+            </button>
+          </h2>
+          <div id="collapse-{{id}}" class="accordion-collapse collapse" data-bs-parent="#nav-accordion">
+            <div class="accordion-body">
+              <ul>
+                {{#with frontmatter.date}}
+                <li>
+                  {{dateFormat . "LLLZ"}}
+                </li>
+                {{/with}}
+                {{#with frontmatter.lastmod}}
+                <li>
+                  {{dateFormat . "LLL"}}
+                </li>
+                {{/with}}
+              </ul>
+
+              {{frontmatter.description}}
+
+
+              <a href="{{id}}.html">Read</a>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </nav>
+    </main>
+  </body>
+</html>

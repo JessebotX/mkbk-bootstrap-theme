@@ -1,0 +1,117 @@
+.mkbk-theme-index-list {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1em;
+}
+
+@media (max-width: 992px) {
+    .mkbk-theme-index-list {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .mkbk-theme-index-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 576px) {
+    .mkbk-theme-index-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 400px) {
+    .mkbk-theme-index-list {
+        grid-template-columns: auto;
+    }
+}
+
+.mkbk-theme-index-list-item {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.1s ease-in-out;
+}
+
+.mkbk-theme-index-list-item:hover .mkbk-theme-index-list-item-cover {
+    transform: scale(1.05);
+}
+
+.mkbk-theme-index-list-item-cover {
+    border-radius: 0.5em;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: 0.1s ease-in-out;
+    margin-bottom: 0.5em;
+}
+
+.mkbk-theme-index-list-item-title {
+    margin: 0;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.mkbk-theme-book-cover {
+    border-radius: 0.75em;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 350px;
+}
+
+@media (max-width: 992px) {
+    .mkbk-theme-book-cover {
+        max-width: 400px;
+        margin: 0 auto;
+        margin-bottom: 1em;
+    }
+}
+
+.mkbk-theme-book-meta {
+    display: flex;
+}
+
+@media (max-width: 992px) {
+    .mkbk-theme-book-meta {
+        display: block;
+    }
+}
+
+.mkbk-theme-book-meta-aside {
+    flex-shrink: 0;
+}
+
+.mkbk-theme-book-meta-main {
+    margin-left: 1.5em;
+}
+
+@media (max-width: 992px) {
+    .mkbk-theme-book-meta-main {
+        margin-left: 0;
+    }
+}
+
+/*
+:root {
+    --mkbk-chapter-sidenav-width: 12em;
+}
+
+.mkbk-theme-chapter-sidenav {
+    display: flex;
+    flex-direction: column;
+    width: var(--mkbk-chapter-sidenav-width);
+    position: fixed;
+    top: 5em;
+}
+
+.mkbk-theme-chapter-sidenav-item {
+    color: inherit
+    text-decoration: none;
+}
+
+.mkbk-theme-chapter-content {
+    margin-left: calc(var(--mkbk-chapter-sidenav-width) + 3em);
+}
+*/

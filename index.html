@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="{{languageCode}}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="theme.css">
+
+    {{#with description}}
+    <meta name="description" content="{{.}}">
+    <meta property="og:description" content="{{.}}">
+    {{/with}}
+
+    <script src="theme.js" defer></script>
+
+    <meta property="og:title" content="{{title}}">
+    <title>{{title}}</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar bg-body-tertiary" role="Site menu">
+        <div class="container">
+          <a class="navbar-brand" href="/">{{title}}</a>
+
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="settings-toggle-theme">
+            <label class="form-check-label" for="settings-toggle-theme">
+              Dark Mode
+            </label>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container my-3">
+      <nav class="mkbk-theme-index-list">
+        {{#each books}}
+        <a href="{{id}}/index.html" class="mkbk-theme-index-list-item">
+          <img class="mkbk-theme-index-list-item-cover"
+               src="{{id}}/{{coverRelativePath}}"
+               alt="{{title}} cover image">
+          <h2 class="mkbk-theme-index-list-item-title">{{title}}</h2>
+          {{#with author.name}}
+          {{.}}
+          {{/with}}
+        </a>
+        {{/each}}
+      </nav>
+    </main>
+  </body>
+</html>
