@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{#with languageCode}}{{.}}{{else}}{{parent.languageCode}}{{/with}}">
+<html lang="{{languageCode}}"
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,12 +10,12 @@
 
     <link rel="stylesheet" href="../theme.css">
 
-    {{#with description}}
-    <meta name="description" content="{{.}}">
-    <meta property="og:description" content="{{.}}">
-    {{/with}}
+    {% if description %}
+    <meta name="description" content="{{description}}">
+    <meta property="og:description" content="{{description}}">
+    {% endif %}
 
-    <meta property="og:image" content="{{coverRelativePath}}">
+    <meta property="og:image" content="{{coverRelPath}}">
 
     <script src="../theme.js" defer></script>
 
@@ -42,30 +42,30 @@
       <div class="mkbk-theme-book-meta">
         <aside class="mkbk-theme-book-meta-aside">
           <img class="mkbk-theme-book-cover shadow-lg"
-               src="{{coverRelativePath}}"
+               src="{{coverRelPath}}"
                alt="{{title}} cover image">
         </aside>
         <section class="mkbk-theme-book-meta-main">
           <h1 class="display-3">{{title}}</h1>
           <strong class="h5">{{author.name}}</strong>
           <ul class="p-0">
-            {{#each tags}}
-            <li class="badge bg-primary">{{.}}</li>
-            {{/each}}
+            {% for tag in tags %}
+            <li class="badge bg-primary">{{tag}}</li>
+            {% endfor %}
           </ul>
 
           <section class="row mt-4">
             <h2 class="h6 fw-bold text-secondary">ABOUT</h2>
-            {{{content}}}
+            {{content | safe}}
           </section>
           <div class="row">
             <section class="col-sm-4 col-6">
               <h2 class="h6 fw-bold text-secondary">PUBLISHER</h2>
-              {{#with publisherName}}
-              {{.}}
-              {{else}}
+              {% if publisherName %}
+              {{publisherName}}
+              {% else %}
               None
-              {{/with}}
+              {% endif %}
             </section>
             <section class="col-sm-4 col-6">
               <h2 class="h6 fw-bold text-secondary">STATUS</h2>
@@ -78,43 +78,43 @@
           </div>
           <div class="btn-group mt-3" role="group" aria-label="Download Links">
             <a href="rss.xml" class="btn btn-warning">RSS</a>
-            <a href="{{id}}.epub" class="btn btn-warning">EPUB</a>
+            <a href="{{book.id}}.epub" class="btn btn-warning">EPUB</a>
           </div>
         </section>
       </div>
 
       <h2 class="mt-4">Contents</h2>
       <nav role="Chapters list" class="accordion mt-3 mb-3" id="nav-accordion">
-        {{#each chapters }}
+        {% for chapter in chapters %}
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{id}}" aria-expanded="true" aria-controls="{{id}}-collapse">
-              {{frontmatter.title}}
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{chapter.id}}" aria-expanded="true" aria-controls="collapse-{{chapter.id}}">
+              {{chapter.frontmatter.title}}
             </button>
           </h2>
-          <div id="collapse-{{id}}" class="accordion-collapse collapse" data-bs-parent="#nav-accordion">
+          <div id="collapse-{{chapter.id}}" class="accordion-collapse collapse" data-bs-parent="#nav-accordion">
             <div class="accordion-body">
               <ul>
-                {{#with frontmatter.date}}
+                {% if chapter.frontmatter.date %}
                 <li>
-                  {{dateFormat . "LLLZ"}}
+                  {{chapter.frontmatter.date}}
                 </li>
-                {{/with}}
-                {{#with frontmatter.lastmod}}
+                {% endif %}
+                {% if chapter.frontmatter.lastmod %}
                 <li>
-                  {{dateFormat . "LLL"}}
+                  {{chapter.frontmatter.lastmod}}
                 </li>
-                {{/with}}
+                {% endif %}
               </ul>
 
-              {{frontmatter.description}}
+              {{chapter.frontmatter.description}}
 
 
-              <a href="{{id}}.html">Read</a>
+              <a href="{{chapter.id}}.html">Read</a>
             </div>
           </div>
         </div>
-        {{/each}}
+        {% endfor %}
       </nav>
     </main>
   </body>

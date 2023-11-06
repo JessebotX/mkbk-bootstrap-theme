@@ -10,10 +10,10 @@
 
     <link rel="stylesheet" href="theme.css">
 
-    {{#with description}}
-    <meta name="description" content="{{.}}">
-    <meta property="og:description" content="{{.}}">
-    {{/with}}
+    {% if description %}
+    <meta name="description" content="{{description}}">
+    <meta property="og:description" content="{{description}}">
+    {% endif %}
 
     <script src="theme.js" defer></script>
 
@@ -38,17 +38,17 @@
 
     <main class="container my-3">
       <nav class="mkbk-theme-index-list">
-        {{#each books}}
-        <a href="{{id}}/index.html" class="mkbk-theme-index-list-item">
+        {% for book in books %}
+        <a href="{{book.id}}/index.html" class="mkbk-theme-index-list-item">
           <img class="mkbk-theme-index-list-item-cover"
-               src="{{id}}/{{coverRelativePath}}"
-               alt="{{title}} cover image">
-          <h2 class="mkbk-theme-index-list-item-title">{{title}}</h2>
-          {{#with author.name}}
-          {{.}}
-          {{/with}}
+               src="{{book.id}}/{{book.coverRelPath}}"
+               alt="{{book.title}} cover image">
+          <h2 class="mkbk-theme-index-list-item-title">{{book.title}}</h2>
+          {% if book.author.name %}
+          {{book.author.name}}
+          {% endif %}
         </a>
-        {{/each}}
+        {% endfor %}
       </nav>
     </main>
   </body>

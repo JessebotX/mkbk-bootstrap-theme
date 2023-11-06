@@ -10,10 +10,10 @@
 
     <link rel="stylesheet" href="../theme.css">
 
-    {{#with description}}
-    <meta name="description" content="{{.}}">
-    <meta property="og:description" content="{{.}}">
-    {{/with}}
+    {% if description %}
+    <meta name="description" content="{{description}}">
+    <meta property="og:description" content="{{description}}">
+    {% endif %}
 
     <script src="../theme.js" defer></script>
 
@@ -44,9 +44,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </header>
       <nav class="offcanvas-body nav flex-column">
-        {{#each parent.chapters}}
-        <a href="{{id}}.html">{{frontmatter.title}}</a>
-        {{/each}}
+        {% for chapter in  parent.chapters %}
+        <a href="{{chapter.id}}.html">{{chapter.frontmatter.title}}</a>
+        {% endfor %}
       </nav>
     </section>
 
@@ -63,19 +63,19 @@
           </section>
           <em class="fst-normal">{{frontmatter.description}}</em>
           <ul class="list-group">
-            {{#with frontmatter.date}}
+            {% if frontmatter.date %}
             <li class="list-group-item">
-              <strong>Published</strong> {{ dateFormat . "LLLZ" }}
+              <strong>Published</strong> {{ frontmatter.date }}
             </li>
-            {{/with}}
-            {{#with frontmatter.lastmod}}
+            {% endif %}
+            {% if frontmatter.lastmod %}
             <li class="list-group-item">
-              <strong>Last Updated</strong> {{ dateFormat . "LLL" }}
+              <strong>Last Updated</strong> {{ frontmatter.lastmod }}
             </li>
-            {{/with}}
+            {% endif %}
           </div>
         </header>
-        {{{ content }}}
+        {{ content | safe }}
       </section>
     </main>
   </body>
